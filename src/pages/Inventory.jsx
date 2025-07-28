@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../api/axios'; // your custom axios instance
+import axios from '../api/axios';
 import styled from 'styled-components';
 import AddProductModal from '../components/AddProductModal';
 import ProductCard from '../components/ProductCard';
 
-// Styled Components
 const InventoryContainer = styled.div`
   padding: 20px;
 `;
@@ -51,28 +50,23 @@ const Inventory = () => {
   const [products, setProducts] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Fetch all products from backend on mount
+  // Fetch all products on load
   useEffect(() => {
-    axios.get('/products')  
+    axios.get('/products')
       .then(res => {
-        setProducts(res.data); // Set data from backend
+        setProducts(res.data);
       })
       .catch(err => {
         console.error('Error fetching products:', err);
       });
   }, []);
 
-  // Add product (connected to backend)
-  const handleAddProduct = async (newProduct) => {
-    try {
-      const res = await axios.post('/products', newProduct);
-      setProducts(prev => [...prev, res.data]);
-      setShowModal(false);
-      setSuccessMessage('Product Added Successfully!');
-      setTimeout(() => setSuccessMessage(''), 2000);
-    } catch (err) {
-      console.error('Error adding product:', err);
-    }
+  // Add product to UI when returned from modal
+  const handleAddProduct = (newProduct) => {
+    setProducts(prev => [newProduct, ...prev]);
+    setShowModal(false);
+    setSuccessMessage('Product Added Successfully!');
+    setTimeout(() => setSuccessMessage(''), 2000);
   };
 
   return (

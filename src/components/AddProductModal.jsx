@@ -89,7 +89,7 @@ const AddProductModal = ({ onClose, onAdd }) => {
       category,
       expiryDate,
       quantity: Number(quantity),
-      status: 'Safe', // You can change status logic later based on expiry
+      status: 'Safe',
     };
 
     try {
@@ -102,8 +102,9 @@ const AddProductModal = ({ onClose, onAdd }) => {
       });
 
       if (res.ok) {
+        const createdProduct = await res.json(); // Get product from backend
+        onAdd(createdProduct); // Send to Inventory
         setShowSuccess(true);
-        onAdd(); // Optional: refresh product list in parent
         setName('');
         setCategory('');
         setExpiryDate('');

@@ -55,7 +55,7 @@ const ActionButton = styled.button`
   border: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
-  background-color: ${(props) => (props.edit ? 'white' : '#d9534f')};
+  background-color: ${(props) => (props.edit ? 'white' : 'white')};
   color: black;
 
   &:hover {

@@ -4,6 +4,12 @@ import Topbar from './components/Topbar';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
+import Login from './components/Login';
+
+const RequireAuth = ({ children }) => {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  return isLoggedIn ? children : <Navigate to="/Login" />;
+};
 
 function App() {
   return (
@@ -12,8 +18,23 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/Login" element={<Login />} />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/inventory"
+          element={
+            <RequireAuth>
+              <Inventory />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </Router>
   );
