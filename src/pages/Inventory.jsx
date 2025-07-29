@@ -5,10 +5,17 @@ import AddProductModal from '../components/AddProductModal';
 import ProductCard from '../components/ProductCard';
 
 // Styled Components
-const InventoryContainer = styled.div`padding: 20px;`;
-const FilterContainer = styled.div`display: flex; gap: 15px; margin-bottom: 20px;`;
-const Input = styled.input`padding: 8px; flex: 1;`;
-const Select = styled.select`padding: 8px;`;
+const InventoryContainer = styled.div`
+padding: 20px;`;
+const FilterContainer = styled.div`
+display: flex;
+ gap: 15px;
+margin-bottom: 20px;`;
+const Input = styled.input`
+padding: 8px;
+ flex: 1;`;
+const Select = styled.select`
+padding: 8px;`;
 const AddButton = styled.button`
   background-color: #4caf50;
   color: white;
@@ -16,7 +23,10 @@ const AddButton = styled.button`
   border: none;
   cursor: pointer;
 `;
-const ProductGrid = styled.div`display: flex; flex-wrap: wrap; gap: 15px;`;
+const ProductGrid = styled.div`
+display: flex; 
+flex-wrap: wrap;
+ gap: 15px;`;
 const Toast = styled.div`
   background-color: #4caf50;
   color: white;
@@ -118,7 +128,7 @@ const Inventory = () => {
         </Select>
         <Select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
           <option>All Status</option>
-          <option>Safe</option>
+          <option>Active</option>
           <option>Expiring Soon</option>
           <option>Expired</option>
         </Select>
@@ -146,3 +156,4 @@ const Inventory = () => {
 };
 
 export default Inventory;
+
