@@ -50,23 +50,24 @@ const Inventory = () => {
   const [products, setProducts] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Fetch all products on load
   useEffect(() => {
-    axios.get('/products')
-      .then(res => {
-        setProducts(res.data);
-      })
-      .catch(err => {
-        console.error('Error fetching products:', err);
-      });
+    axios.get('/products').then(res => setProducts(res.data));
   }, []);
 
-  // Add product to UI when returned from modal
   const handleAddProduct = (newProduct) => {
     setProducts(prev => [newProduct, ...prev]);
     setShowModal(false);
     setSuccessMessage('Product Added Successfully!');
     setTimeout(() => setSuccessMessage(''), 2000);
+  };
+
+  const handleDeleteProduct = async (id) => {
+    await axios.delete(`/products/${id}`);
+    setProducts(prev => prev.filter(p => p._id !== id));
+  };
+
+  const handleEditProduct = (updatedProduct) => {
+    setProducts(prev => prev.map(p => p._id === updatedProduct._id ? updatedProduct : p));
   };
 
   return (
@@ -91,8 +92,13 @@ const Inventory = () => {
       </FilterContainer>
 
       <ProductGrid>
-        {products.map((product, index) => (
-          <ProductCard key={index} product={product} />
+        {products.map(product => (
+          <ProductCard
+            key={product._id}
+            product={product}
+            onDelete={handleDeleteProduct}
+            onEdit={handleEditProduct}
+          />
         ))}
       </ProductGrid>
 

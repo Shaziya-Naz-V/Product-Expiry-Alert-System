@@ -4,6 +4,7 @@ const productSchema = new mongoose.Schema({
   name: String,
   category: String,
   expiryDate: Date,
+  quantity: Number,
   status: String,
 });
 
