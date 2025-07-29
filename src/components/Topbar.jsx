@@ -1,50 +1,54 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-const TopbarContainer = styled.div`
+const Container = styled.div`
+  padding: 10px 20px;
+  color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
-  padding: 0 20px;
-  border-bottom: 1px solid #ddd;
-  background-color: #fff;
 `;
 
-const LeftSection = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-`;
-
-const Title = styled.h2`
+const Title = styled.h1`
   font-size: 20px;
-  font-weight: bold;
-  color: #333;
+  margin: 0;
 `;
 
 const LogoutButton = styled.button`
-  padding: 8px 16px;
-  background-color: transparent;
-  border: 1px solid black;
+  padding: 8px 14px;
+  background: transparent;
   color: black;
-  border-radius: 4px;
+  border: 2px solid black;
+  border-radius: 5px;
   cursor: pointer;
 
   &:hover {
-    background-color: black;
-    color: white;
+  background:black;
+  color : white;
   }
 `;
 
-const Topbar = () => {
+const Topbar = ({ setIsAuthenticated }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear token or session if needed
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    // Update auth state
+    setIsAuthenticated(false);
+
+    // Redirect to login
+    navigate('/');
+  };
+
   return (
-    <TopbarContainer>
-      <LeftSection>
-        <Title>📦 Product Expiry Alert System</Title>
-      </LeftSection>
-      <LogoutButton>Logout</LogoutButton>
-    </TopbarContainer>
+    <Container>
+      <Title>Product Expiry Alert</Title>
+      <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+    </Container>
   );
 };
 
