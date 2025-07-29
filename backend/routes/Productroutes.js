@@ -1,26 +1,87 @@
+// const express = require('express');
+// const router = express.Router();
+// const Product = require('../models/Product');
+
+// router.get('/', async (req, res) => {
+//   const products = await Product.find();
+//   res.json(products);
+// });
+
+// router.post('/', async (req, res) => {
+//   const product = new Product(req.body);
+//   const saved = await product.save();
+//   res.json(saved);
+// });
+
+// router.delete('/:id', async (req, res) => {
+//   await Product.findByIdAndDelete(req.params.id);
+//   res.json({ message: 'Deleted' });
+// });
+
+// router.put('/:id', async (req, res) => {
+//   const updated = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+//   res.json(updated);
+// });
+
+// module.exports = router;
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 
+// Get all products
 router.get('/', async (req, res) => {
   const products = await Product.find();
   res.json(products);
 });
 
+// Add a product
 router.post('/', async (req, res) => {
   const product = new Product(req.body);
   const saved = await product.save();
   res.json(saved);
 });
 
+// Delete a product
 router.delete('/:id', async (req, res) => {
   await Product.findByIdAndDelete(req.params.id);
   res.json({ message: 'Deleted' });
 });
 
+// Update a product
 router.put('/:id', async (req, res) => {
   const updated = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
   res.json(updated);
+});
+
+// ✅ NEW: Get product stats
+router.get('/stats', async (req, res) => {
+  try {
+    const products = await Product.find();
+    const today = new Date();
+
+    let total = products.length;
+    let expired = 0;
+    let expiring = 0;
+    let active = 0;
+
+    products.forEach(product => {
+      const expiry = new Date(product.expiryDate);
+      const diffDays = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
+
+      if (diffDays < 0) {
+        expired++;
+      } else if (diffDays <= 7) {
+        expiring++;
+      } else {
+        active++;
+      }
+    });
+
+    res.json({ total, expired, expiring, active });
+  } catch (err) {
+    console.error('Error in /products/stats:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 module.exports = router;
