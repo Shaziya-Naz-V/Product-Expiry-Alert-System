@@ -38,7 +38,7 @@ const Card = styled.div`
 `;
 
 const CardTitle = styled.p`
-  font-size: 16px;
+  font-size: 1.5rem;
   color: #777;
 `;
 

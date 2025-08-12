@@ -34,7 +34,15 @@ const Toast = styled.div`
   margin-bottom: 10px;
   border-radius: 4px;
 `;
+const calculateStatus = (expiryDate) => {
+  const today = new Date();
+  const expiry = new Date(expiryDate);
+  const diffDays = (expiry - today) / (1000 * 60 * 60 * 24);
 
+  if (diffDays < 0) return 'Expired';
+  if (diffDays <= 7) return 'Expiring Soon';
+  return 'Safe';
+};
 const Inventory = () => {
   const [showModal, setShowModal] = useState(false);
   const [products, setProducts] = useState([]);
@@ -83,18 +91,14 @@ const Inventory = () => {
   }, [search, categoryFilter, statusFilter, products]);
 
   // Add product handler
-  const handleAddProduct = async (newProduct) => {
-    try {
-      const res = await axios.post('/products', newProduct);
-      const updated = [...products, res.data];
-      setProducts(updated);
-      setShowModal(false);
-      setSuccessMessage('Product Added Successfully!');
-      setTimeout(() => setSuccessMessage(''), 2000);
-    } catch (err) {
-      console.error('Error adding product:', err);
-    }
-  };
+  // ✅ Now just updates state with the created product from modal
+const handleAddProduct = (createdProduct) => {
+  setProducts((prev) => [...prev, createdProduct]);
+  setShowModal(false);
+  setSuccessMessage('Product Added Successfully!');
+  setTimeout(() => setSuccessMessage(''), 2000);
+};
+
 
   // ✅ Delete product handler
   const handleDeleteProduct = async (id) => {

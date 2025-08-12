@@ -46,7 +46,7 @@ const Topbar = ({ setIsAuthenticated }) => {
 
   return (
     <Container>
-      <Title>Product Expiry Alert</Title>
+      <Title>📦 Product Expiry Alert</Title>
       <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
     </Container>
   );

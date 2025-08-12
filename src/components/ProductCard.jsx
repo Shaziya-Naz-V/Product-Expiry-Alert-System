@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import axios from '../api/axios';
 
 const getStatusColor = (status) => {
-  if (status === 'Expired') return '#d9938d';
-  if (status === 'Expiring Soon') return '#e7b569';
-  return '#7fe482';
+  if (status === 'Expired') return '#f18e85ff';
+  if (status === 'Expiring Soon') return '#f3d6aaff';
+  return '#adeeafff';
 };
 
 const Card = styled.div`

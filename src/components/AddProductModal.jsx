@@ -83,6 +83,16 @@ const AddProductModal = ({ onClose, onAdd }) => {
   const [quantity, setQuantity] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
 
+    const calculateStatus = (expiryDate) => {
+    const today = new Date();
+    const expiry = new Date(expiryDate);
+    const diffDays = (expiry - today) / (1000 * 60 * 60 * 24);
+
+    if (diffDays < 0) return 'Expired';
+    if (diffDays <= 7) return 'Expiring Soon';
+    return 'Safe';
+  };
+
   const handleAdd = async () => {
     const newProduct = {
       name,
@@ -102,8 +112,13 @@ const AddProductModal = ({ onClose, onAdd }) => {
       });
 
       if (res.ok) {
-        const createdProduct = await res.json(); // Get product from backend
-        onAdd(createdProduct); // Send to Inventory
+       const createdProduct = await res.json();
+        // Calculate status after backend response
+        const productWithStatus = {
+          ...createdProduct,
+          status: calculateStatus(createdProduct.expiryDate),
+        };
+        onAdd(productWithStatus);
         setShowSuccess(true);
         setName('');
         setCategory('');
