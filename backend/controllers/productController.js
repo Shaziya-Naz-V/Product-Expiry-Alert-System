@@ -1,6 +1,4 @@
 const Product = require('../models/Product');
-
-// GET all products
 const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
@@ -9,8 +7,6 @@ const getProducts = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-// POST a product
 const addProduct = async (req, res) => {
   const { name, category, expiryDate } = req.body;
   try {

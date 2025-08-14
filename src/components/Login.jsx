@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-
-// Styled Components
 const LoginContainer = styled.div`
   max-width: 400px;
   margin: 150px auto;

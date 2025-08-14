@@ -90,8 +90,6 @@ const Inventory = () => {
     setFilteredProducts(filtered);
   }, [search, categoryFilter, statusFilter, products]);
 
-  // Add product handler
-  // ✅ Now just updates state with the created product from modal
 const handleAddProduct = (createdProduct) => {
   setProducts((prev) => [...prev, createdProduct]);
   setShowModal(false);
@@ -99,8 +97,6 @@ const handleAddProduct = (createdProduct) => {
   setTimeout(() => setSuccessMessage(''), 2000);
 };
 
-
-  // ✅ Delete product handler
   const handleDeleteProduct = async (id) => {
     try {
       await axios.delete(`/products/${id}`);

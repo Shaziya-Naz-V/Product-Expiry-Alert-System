@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const Product = require('../models/Product');
 const sendEmail = require('../utils/sendEmail');
 require('dotenv').config();
-
-// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('✅ Connected to MongoDB');
@@ -17,8 +15,6 @@ mongoose.connect(process.env.MONGO_URI)
     console.error('❌ DB or script error:', err);
     process.exit(1);
   });
-
-// Send expiry alert email
 const sendExpiryAlert = async (product, daysLeft) => {
   const subject = `⚠️ Expiry Alert: ${product.name}`;
   const html = `<p>The product <strong>${product.name}</strong> will expire on <strong>${new Date(product.expiryDate).toDateString()}</strong> (in ${daysLeft} days).</p>`;
@@ -26,8 +22,6 @@ const sendExpiryAlert = async (product, daysLeft) => {
   await sendEmail(subject, html);
   console.log(`📧 Alert sent for ${product.name} (in ${daysLeft} days)`);
 };
-
-// Check products and send alerts
 const checkExpiry = async () => {
   const products = await Product.find();
   const today = new Date();

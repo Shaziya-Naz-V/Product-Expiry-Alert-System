@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
-
-// ✅ Get all products with expiry status
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find();
@@ -29,8 +27,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-// ✅ Add a product
 router.post('/', async (req, res) => {
   try {
     const product = new Product(req.body);
@@ -42,7 +38,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ✅ Delete a product
 router.delete('/:id', async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
@@ -52,8 +47,6 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-// ✅ Update a product
 router.put('/:id', async (req, res) => {
   try {
     const updated = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -63,8 +56,6 @@ router.put('/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-// ✅ Product stats (for dashboard)
 router.get('/stats', async (req, res) => {
   try {
     const products = await Product.find();

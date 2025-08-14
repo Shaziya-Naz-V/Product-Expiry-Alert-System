@@ -33,14 +33,10 @@ const Topbar = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Clear token or session if needed
     localStorage.removeItem('token');
     localStorage.removeItem('user');
 
-    // Update auth state
     setIsAuthenticated(false);
-
-    // Redirect to login
     navigate('/');
   };
 

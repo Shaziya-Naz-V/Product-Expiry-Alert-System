@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import axios from '../api/axios';
 
 const getStatusColor = (status) => {
   if (status === 'Expired') return '#f18e85ff';

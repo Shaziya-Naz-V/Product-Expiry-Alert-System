@@ -13,7 +13,7 @@ const sendEmail = async (subject, html) => {
 
     const mailOptions = {
       from: process.env.ADMIN_EMAIL,
-      to: process.env.ADMIN_EMAIL,  // Change to your alert recipient if needed
+      to: process.env.ADMIN_EMAIL,  
       subject,
       html,
     };

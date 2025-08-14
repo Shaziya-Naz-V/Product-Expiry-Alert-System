@@ -113,7 +113,6 @@ const AddProductModal = ({ onClose, onAdd }) => {
 
       if (res.ok) {
        const createdProduct = await res.json();
-        // Calculate status after backend response
         const productWithStatus = {
           ...createdProduct,
           status: calculateStatus(createdProduct.expiryDate),
