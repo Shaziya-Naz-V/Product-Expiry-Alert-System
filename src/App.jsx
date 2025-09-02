@@ -4,16 +4,13 @@ import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
 import Topbar from './components/Topbar';
 import Navbar from './components/Navbar';
-import Login from './components/Login'; 
-
+import Login from './components/Login';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   return (
     <Router>
       {isAuthenticated && <Topbar setIsAuthenticated={setIsAuthenticated} />}
       {isAuthenticated && <Navbar />}
-
       <Routes>
         <Route
           path="/"
@@ -33,5 +30,5 @@ function App() {
     </Router>
   );
 }
-
 export default App;
+
