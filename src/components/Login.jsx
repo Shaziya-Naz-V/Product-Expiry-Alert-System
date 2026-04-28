@@ -65,7 +65,7 @@ const Login = ({ setIsAuthenticated }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/login', { email, password });
+      const res = await axios.post('https://product-expiry-alert-system-ch0e.onrender.com/api/login', { email, password });
       setIsAuthenticated(true);
       setSuccess(true);
       setMsg('Login successful');
