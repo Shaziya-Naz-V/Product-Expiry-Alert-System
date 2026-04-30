@@ -94,6 +94,9 @@ const Login = ({ setIsAuthenticated }) => {
           required
         />
         <Button type="submit">Login</Button>
+        <p style={{ textAlign: 'center', color: '#888', fontSize: '13px', marginTop: '10px' }}>
+          Demo: admin@test.com / admin123
+        </p>
       </Form>
       {msg && <Message success={success}>{msg}</Message>}
     </LoginContainer>
